@@ -13,9 +13,8 @@ module "eks" {
       service_account_role_arn = module.irsa-ebs-csi.iam_role_arn
     }
   }
-
-  subnet_ids = var.private_subnets
-
+  subnet_ids = var.subnet_ids
+  vpc_id = var.vpc_id
   eks_managed_node_group_defaults = {
     ami_type = "AL2_x86_64"
 

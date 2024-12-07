@@ -1,4 +1,5 @@
 variable "cluster_name" {}
 variable "region" {}
-variable "private_subnets" {}
+variable "vpc_id" {}
+variable "subnet_ids" { type        = list(string)}
 
