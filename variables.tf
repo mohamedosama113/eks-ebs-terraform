@@ -1,23 +1,7 @@
-variable "aws_region" {
-  description = "AWS region to deploy resources"
-  type        = string
-  default     = "us-east-1"
-}
-
-variable "vpc_name" {
-  description = "Name of the VPC"
-  type        = string
-  default     = "eks-vpc"
-}
-
-variable "vpc_cidr_block" {
-  description = "CIDR block for the VPC"
-  type        = string
-  default     = "10.0.0.0/16"
-}
-
-variable "cluster_name" {
-  description = "Name of the EKS cluster"
-  type        = string
-  default     = "eks-ebs-cluster"
-}
+variable "cluster_name" {}
+variable "region" {}
+variable "private_subnets" {}
+variable "vpc_name" {}
+variable "cidr_block" {}
+variable "azs" {}
+variable "public_subnets" {}

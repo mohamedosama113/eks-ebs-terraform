@@ -2,7 +2,7 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "20.8.5"
 
-  cluster_name    = local.cluster_name
+  cluster_name    = var.cluster_name
   cluster_version = "1.29"
 
   cluster_endpoint_public_access           = true
@@ -14,8 +14,7 @@ module "eks" {
     }
   }
 
-  vpc_id     = var.vpc_id
-  subnet_ids = var.subnet_ids
+  subnet_ids = var.private_subnets
 
   eks_managed_node_group_defaults = {
     ami_type = "AL2_x86_64"
@@ -37,7 +36,6 @@ module "eks" {
 }
 
 
-# https://aws.amazon.com/blogs/containers/amazon-ebs-csi-driver-is-now-generally-available-in-amazon-eks-add-ons/ 
 data "aws_iam_policy" "ebs_csi_policy" {
   arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
 }
