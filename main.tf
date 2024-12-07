@@ -1,21 +1,28 @@
-# Root main.tf
-
-# Initialize provider
 provider "aws" {
   region = var.aws_region
 }
 
-# Call VPC module
 module "vpc" {
   source = "./modules/vpc"
 
-  cidr_block = var.vpc_cidr_block
+  vpc_cidr         = var.vpc_cidr
+  public_subnets   = var.public_subnets
+  private_subnets  = var.private_subnets
+  availability_zones = var.availability_zones
 }
 
-# Call EKS module
 module "eks" {
-  source      = "./modules/eks"
-  vpc_id      = module.vpc.vpc_id
-  subnet_ids  = module.vpc.subnet_ids
-  cluster_name = var.cluster_name
+  source = "./modules/eks"
+
+  cluster_name    = var.cluster_name
+  cluster_version = var.cluster_version
+  subnets         = module.vpc.private_subnets
+  vpc_id          = module.vpc.vpc_id
+}
+
+module "csi" {
+  source = "./modules/csi"
+
+  cluster_name   = module.eks.cluster_name
+  cluster_role_arn = module.eks.cluster_role_arn
 }
