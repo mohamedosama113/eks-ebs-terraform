@@ -1,15 +1,15 @@
 variable "cluster_name" {
-  description = "EKS cluster name"
-}
-
-variable "cluster_version" {
-  description = "EKS cluster version"
-}
-
-variable "subnets" {
-  description = "Private subnets for the EKS cluster"
+  description = "Name of the EKS cluster"
+  type        = string
 }
 
 variable "vpc_id" {
-  description = "VPC ID for the EKS cluster"
+  description = "ID of the VPC"
+  type        = string
 }
+
+variable "subnet_ids" {
+  description = "List of Subnet IDs"
+  type        = list(string)
+}
+
